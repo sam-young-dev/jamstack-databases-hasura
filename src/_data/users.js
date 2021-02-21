@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 module.exports = () => {
   async function getUsers() {
     const result = await fetch(
-      'https://lwj-hasura-jamstack.hasura.app/v1/graphql',
+      'https://moral-gnat-75.hasura.app/v1/graphql',
       {
         method: 'POST',
         headers: {
@@ -14,15 +14,9 @@ module.exports = () => {
             query MyQuery {
               users {
                 id
-                githubUsername
                 name
-                lwjEpisode {
-                  title
-                  guest {
-                    name
-                    twitter
-                  }
-                }
+                githubUsername
+                
               }
             }
           `,
