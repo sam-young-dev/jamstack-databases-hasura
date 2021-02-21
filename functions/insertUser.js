@@ -1,5 +1,6 @@
 exports.handler = async = (event) => {
-  const body = JSON.parse(event.body);
+  console.log(event);
+  // const body = JSON.parse(event.body);
 
   return {
     statusCode: 200,
