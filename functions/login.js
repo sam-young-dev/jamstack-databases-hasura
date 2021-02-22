@@ -9,9 +9,9 @@ exports.handler = async (_event, context) => {
     return {
       statusCode: 200,
       headers: {
-        'content-type': 'text/html',
+        'content-type': 'text/html', 
       },
-      body: `user: ${user.user_metadata.full_name}`
+      body: JSON.stringify(user.app_metadata.roles)
     }
   }
   catch(e) {

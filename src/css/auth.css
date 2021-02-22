@@ -13,6 +13,7 @@ button {
 .logged-in {
   display: none;
 }
+
 .authenticated .logged-out {
   display: none;
 }
