@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth</title>
+
+  <link rel="stylesheet" href="./css/auth.css">
+</head>
+<body>
+  <main>
+    <div class="content logged-out">
+      <h1>Super Secret Stuff!</h1>
+      <p>🔐 only my bestest friends can see this content</p>
+      <button class="login">log in / sign up to be my best friend</button>
+    </div>
+    <div class="content logged-in">
+      <div class="secret-stuff"></div>
+      <button class="logout">log out</button>
+    </div>    
+  </main>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    const login = document.querySelector('.login');
+    login.addEventListener('click', () => {
+      netlifyIdentity.open();
+    });
+
+    const logout = document.querySelector('.logout');
+    logout.addEventListener('click', () => {
+      netlifyIdentity.logout();
+    });
+
+    netlifyIdentity.on('logout', () => {
+      document.querySelector('body').classList.remove('authenticated');
+    });
+
+    netlifyIdentity.on('login', async () => {
+      document.querySelector('body').classList.add('authenticated');
+
+      const token = await netlifyIdentity.currentUser().jwt();
+
+      const response = await fetch('/.netlify/functions/get-secret-content', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(res => res.text());
+
+      document.querySelector('.secret-stuff').innerHTML = response;
+    });
+  </script>
+</body>
+</html>

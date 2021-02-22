@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+</head>
+<body>
+  <main>
+    <form>
+      <label for="name">Search for Rick and Morty Characters</label>
+      <input id="name" name="name" type="text" required />
+      <button type="submit">Search</button>
+    </form>
+
+    <ul id="search-results"></ul>
+
+    <template id="search-result-template">
+      <li class="search-result">
+        <figure class="image-wrapper">
+          <img class="image" />
+        </figure>
+
+        <h2 class="name"></h2>
+        <dl class="details">
+          <dt>Species</dt>
+          <dd class="species"></dd>
+          <dt>Status</dt>
+          <dd class="status"></dd>
+        </dl>
+      </li>
+    </template>
+
+    <script type="module">
+      import showResults from '../js/show-results.js';
+
+      const form = document.querySelector('form');
+
+      const handleSubmit = async(e) => {
+        e.preventDefault();
+
+        const name = form.elements['name'].value;
+        console.log(name);
+
+        const characters = await fetch(`https://rickandmortyapi.com/api/character/?name=${name}`)
+          .then(res => res.json())
+          .catch(e => console.log(e));
+
+        console.log(characters.results);
+
+        // add the search results to the DOM
+        showResults(characters.results);
+      };
+
+      form.addEventListener('submit', handleSubmit);
+    </script>
+  </main>
+</body>
+</html>
