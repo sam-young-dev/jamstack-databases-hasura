@@ -4,6 +4,8 @@ exports.handler = async (_event, context) => {
 
     if (!user) throw new Error('Not Authorized');
 
+    console.log(user);
+
     return {
       statusCode: 200,
       headers: {
