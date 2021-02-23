@@ -10,6 +10,35 @@
   {% endfor %}
 </ul>
 
+<ul class="products">
+  {% for item in products %}
+
+  <li class="product">
+    <img src={{item.image}} alt={{item.image}}>
+    <h2>{{ item.name }}</h2>
+    <p class="description">{{ item.description }}</p>
+    <p>{{ item.price }}</p>
+
+    <form action="" method="POST">
+      <label for="quantity">Quantity</label>
+      <input 
+        name="quantity"
+        id="quantity"
+        type="number" 
+        value="1"
+        min="1"
+        max="10" 
+      />
+
+      <input type="text" hidden value={{item.id}}>
+
+      <button type="submit" class="btn">Buy Now</button>
+    </form>
+  </li>
+
+  {% endfor %}
+</ul>
+
 <script>
   // for client-side queries, you can use something like this
   // (or Apollo or URQL for more advanced use cases)
@@ -24,10 +53,13 @@
         body: JSON.stringify({
           query: `
             query MyQuery {
-              users {
+              products {
+                amount
+                currency
+                description
                 id
+                image
                 name
-                githubUsername
               }
             }
           `,
@@ -36,8 +68,20 @@
       }
     ).then((res) => res.json());
 
-    console.log({ result });
+    // console.log(result.data.products);
+    // return result.data.products;
+
+    const products = result.data.products;
+    console.log(products);
+
+    const productsDiv = document.querySelector('.products');
+
+    const pre = document.createElement('pre');
+    pre.innerText = JSON.stringify(products, null, 2);
+
+    productsDiv.appendChild(pre);
   }
 
   // getUsers();
+  
 </script>

@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 module.exports = () => {
-  async function getUsers() {
+  async function getProducts() {
     const result = await fetch(
       'https://moral-gnat-75.hasura.app/v1/graphql',
       {
@@ -12,10 +12,13 @@ module.exports = () => {
         body: JSON.stringify({
           query: `
             query MyQuery {
-              users {
+              products {
+                amount
+                currency
+                description
                 id
+                image
                 name
-                githubUsername
               }
             }
           `,
@@ -24,8 +27,8 @@ module.exports = () => {
       }
     ).then((res) => res.json());
 
-    return result.data.users;
+    return result.data.products;
   }
 
-  return getUsers();
+  return getProducts();
 };

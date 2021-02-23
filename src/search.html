@@ -55,6 +55,40 @@
 
       form.addEventListener('submit', handleSubmit);
     </script>
+
+    <script type="module">
+      async function getProducts() {
+        const result = await fetch(
+          'https://moral-gnat-75.hasura.app/v1/graphql', 
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              query: `
+                query MyQuery {
+                  products {
+                    amount
+                    currency
+                    description
+                    id
+                    image
+                    name
+                  }
+              `,
+              variables: {},
+            })
+          }
+        ).then(res => res.json());
+
+        console.log(result.data);
+        return result.data.products;
+      }
+
+      getProducts();
+      console.log('get products')
+    </script>
   </main>
 </body>
 </html>

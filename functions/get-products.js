@@ -1,33 +1,8 @@
-const fetch = require('node-fetch');
+const products = require('./data/products.json');
 
-module.exports = () => {
-  async function getProducts() {
-    const result = await fetch(
-      'https://moral-gnat-75.hasura.app/v1/graphql',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: `
-            query MyQuery {
-              products {
-                amount
-                currency
-                description
-                id
-                image
-                name
-              }
-          `,
-          variables: {},
-        }),
-      }
-    ).then((res) => res.json());
-
-    return result.data.products;
+exports.handler = async () => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify(products)
   }
-
-  return getProducts();
 };
