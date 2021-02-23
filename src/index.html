@@ -17,7 +17,7 @@
     <img src={{item.image}} alt={{item.image}}>
     <h2>{{ item.name }}</h2>
     <p class="description">{{ item.description }}</p>
-    <p>{{ item.price }}</p>
+    <p>{{ item.amount }}</p>
 
     <form action="" method="POST">
       <label for="quantity">Quantity</label>
@@ -39,6 +39,7 @@
   {% endfor %}
 </ul>
 
+<script src="https://js.stripe.com/v3/"></script>
 <script>
   // for client-side queries, you can use something like this
   // (or Apollo or URQL for more advanced use cases)
