@@ -19,7 +19,7 @@
     <p class="description">{{ item.description }}</p>
     <p>{{ item.amount }}</p>
 
-    <form action="" method="POST">
+    <form id={{item.id}} action="" method="POST">
       <label for="quantity">Quantity</label>
       <input 
         name="quantity"
@@ -30,7 +30,7 @@
         max="10" 
       />
 
-      <input type="text" hidden value={{item.id}}>
+      <input type="text" hidden value={{item.id}} />
 
       <button type="submit" class="btn">Buy Now</button>
     </form>
@@ -39,7 +39,28 @@
   {% endfor %}
 </ul>
 
+<h2>Sign up for our newsletter</h2>
+<form name="contact" method="POST" netlify>
+  <p>
+    <label>Name <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>Email <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
+
 <script src="https://js.stripe.com/v3/"></script>
+<script type="module">
+  import handleFormSubmit from '../js/stripe-purchase.js';
+
+  const forms = document.querySelectorAll('form');
+  console.log(forms);
+
+  forms.forEach(form => form.addEventListener('submit', handleFormSubmit));
+</script>
 <script>
   // for client-side queries, you can use something like this
   // (or Apollo or URQL for more advanced use cases)
