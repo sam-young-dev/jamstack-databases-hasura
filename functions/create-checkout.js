@@ -8,7 +8,12 @@ const inventory = require('./data/products.json');
 
 exports.handler = async (event) => {
   const { id, quantity } = JSON.parse(event.body);
-  const product = inventory.find((p) => p.id === id);
+  console.log(id);
+  console.log(quantity);
+
+  const product = inventory.find(p => p.id === id);
+  console.log(product);
+
   const validatedQuantity = quantity > 0 && quantity < 11 ? quantity : 1;
 
   const session = await stripe.checkout.sessions.create({
@@ -31,6 +36,8 @@ exports.handler = async (event) => {
     ],
   });
 
+  console.log(session.line_items);
+
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -38,4 +45,9 @@ exports.handler = async (event) => {
       publishableKey: STRIPE_PUBLISHABLE_KEY
     }),
   };
+
+  // return {
+  //   statusCode: 200,
+  //   body: "ok",
+  // };
 };
