@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+// import fetch from "node-fetch";
 
 export default async function handleFormSubmit(e) {
   e.preventDefault();
@@ -13,15 +13,15 @@ export default async function handleFormSubmit(e) {
 
   console.log(data);
 
-  const response = await fetch('/.netlify/functions/create-checkout', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  }).then(res => res.json());
+  // const response = await fetch('/.netlify/functions/create-checkout', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(data)
+  // }).then(res => res.json());
 
-  console.log(response);
+  // console.log(response);
 
   // const stripe = Stripe(response.publishableKey);
   // const { error } = await stripe.redirectToCheckout({

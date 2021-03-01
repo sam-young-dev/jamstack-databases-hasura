@@ -30,7 +30,7 @@
         max="10" 
       />
 
-      <input type="text" hidden value={{item.id}} />
+      <input name="id" type="text" value={{item.id}} hidden />
 
       <button type="submit" class="btn">Buy Now</button>
     </form>
@@ -56,10 +56,47 @@
 <script type="module">
   import handleFormSubmit from '../js/stripe-purchase.js';
 
-  const forms = document.querySelectorAll('form');
+  const products = document.querySelector('.products');
+  const forms = products.querySelectorAll('form');
   console.log(forms);
 
-  forms.forEach(form => form.addEventListener('submit', handleFormSubmit));
+  // forms.forEach(form => form.addEventListener('submit', handleFormSubmit));
+
+  forms.forEach(form => {
+    const handleSubmit = async(e) => {
+      e.preventDefault();
+
+      const form = new FormData(e.target);
+
+      const data = {
+        id: form.get('id'),
+        quantity: form.get('quantity')
+      };
+
+      console.log(data);
+
+      const response = await fetch('/.netlify/functions/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }).then(res => res.json());
+
+      console.log(response);
+
+      const stripe = Stripe(response.publishableKey);
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: response.sessionId,
+      });
+
+      if (error) {
+        console.error(error);
+      }
+    }
+
+    form.addEventListener('submit', handleSubmit);
+  });
 </script>
 <script>
   // for client-side queries, you can use something like this
