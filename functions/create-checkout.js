@@ -1,5 +1,7 @@
 const process = require('process');
 const { STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY } = process.env;
+console.log(STRIPE_PUBLISHABLE_KEY);
+console.log(STRIPE_SECRET_KEY);
 
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 const inventory = require('./data/products.json');
