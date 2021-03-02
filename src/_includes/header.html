@@ -122,18 +122,33 @@
     height: 1px;
     background-color: var(--black);
   }
+
+  .wrapper {
+    display: flex;
+    padding: 1.2rem 1rem;
+    background-color: teal;
+    text-decoration: none;
+    color: whitesmoke;
+  }
+
+  .wrapper * + * {
+    margin-left: 1.5rem;
+  }
+
+  .nav-item {
+    color: whitesmoke;
+    text-decoration: none;
+  }
+
+  .nav-item:hover {
+    text-decoration: underline;
+  }
 </style>
 
-<header class="lwj-demo-header">
-  <div class="logo-wrapper">
-    <canvas id="canvas" width="300" height="56"></canvas>
-    <a href="https://www.learnwithjason.dev" class="logo"
-      ><img src="/images/learn-with-jason-dark.svg" alt="Learn With Jason"
-    /></a>
-    <a href="/" rel="home" class="home-link"> {{ meta.title }} </a>
-  </div>
-
-  <div class="top-bar"></div>
+<header class="wrapper">
+  <a href="/" rel="home" class="nav-item"> <strong>{{ meta.title }}</strong> </a>
+  <a href="/products" rel="products" class="nav-item"> products </a>
+  <a href="/search" rel="search" class="nav-item"> search </a>
 </header>
 
 <script type="module">
