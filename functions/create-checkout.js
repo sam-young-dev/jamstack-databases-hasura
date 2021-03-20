@@ -45,9 +45,4 @@ exports.handler = async (event) => {
       publishableKey: STRIPE_PUBLISHABLE_KEY
     }),
   };
-
-  // return {
-  //   statusCode: 200,
-  //   body: "ok",
-  // };
 };
