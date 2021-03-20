@@ -1,5 +1,5 @@
 exports.handler = async (event) => {
-  console.log(event.payload);
+  console.log(event);
 
   return {
     statusCode: 200,
