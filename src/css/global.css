@@ -60,6 +60,10 @@ main {
   width: 90vw;
 }
 
+.hidden {
+  display: none;
+}
+
 @keyframes gradient-roll {
   0% {
     background-position: -100vw 0;
